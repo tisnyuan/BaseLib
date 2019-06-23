@@ -1,13 +1,6 @@
 #include <mutex>
 
-typedef enum _eMuxType
-{
-	E_MUX,
-	E_TIMED_MUX,
-	E_RECURSIVE_MUX,
-	E_RECURSIVE_TIMED_MUTEX
-}eMuxType;
-
+//simple mutex
 class CBaseMutex
 {
 	public:
@@ -24,5 +17,25 @@ class CBaseMutex
 		std::mutex m_mux;
 };
 
-#define GUARD(eMuxType) \
+class CBaseTimedMutex
+{
+	public:
+		CBaseTimedMutex()
+		{
+			m_mux.lock();
+		}
+		~CBaseTimedMutex()
+		{
+			m_mux.unlock();
+		}
+
+	private:
+		std::timed_mutex m_mux;
+};
+
+
+#define MUX_GUARD \
 	CBaseMutex mux;
+
+#define MUX_TIMED_GUARD \
+	CBaseTimedMutex mux;

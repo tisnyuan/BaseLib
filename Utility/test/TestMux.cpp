@@ -2,6 +2,6 @@
 
 int main()
 {
-	GUARD(E_MUX);
+	MUX_GUARD
 	return 0;
 }
