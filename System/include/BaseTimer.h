@@ -2,7 +2,7 @@
 
 #include "BaseThread.h"
 #include "unistd.h"
-#include <iostream>
+#include "ThreadMutex.h"
 
 class CBaseTimer:
 	public CBaseThreadUser
@@ -24,6 +24,7 @@ class CBaseTimer:
 		{
 			while(!m_bIsQuit)
 			{
+				MUX_GUARD
 				OnTimer();
 				sleep(m_nTimeInterval);
 			}
